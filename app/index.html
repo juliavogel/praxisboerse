@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HsKA Praxisbörse</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body ng-controller="AppController">
+
+  <header-view></header-view>
+  <ng-view></ng-view>
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-base64/angular-base64.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="modules/login/login-controllers.js"></script>
+  <script src="modules/login/login-services.js"></script>
+  <script src="modules/menu/menu-controllers.js"></script>
+  <script src="modules/menu/menu-directives.js"></script>
+  <script src="modules/offer/offer-controllers.js"></script>
+  <script src="modules/offer/offer-services.js"></script>
+  <script src="modules/rest/rest-services.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">HsKA Praxisbörse</a>
+            <button ng-if="loggedIn()" ng-click="logout()" class="navbar-toggle">
+                <span class="glyphicon glyphicon-log-out"></span>
+            </button>
+            <button ng-if="loggedIn()" class="navbar-toggle">
+                <span class="glyphicon glyphicon-list"></span>
+            </button>
+            <button ng-if="loggedIn()" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#filter" aria-expanded="false" aria-controls="navbar">
+                <span class="glyphicon glyphicon-filter"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+        </div>
+        <div ng-if="loggedIn()" id="filter" class="navbar-form navbar-collapse collapse">
+            <div class="form-group">
+                <select class="form-control app-header-form-control">
+                    <option>Alle Studiengänge</option>
+                    <option>Bachelor I</option>
+                    <option>Master I</option>
+                    <option>Bachelor MKI</option>
+                    <option>Bachelor WI</option>
+                    <option>Master WI</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control app-header-form-control">
+                    <option>Alle Angebotsarten</option>
+                    <option>Stellenangebot</option>
+                    <option>Praxissemester</option>
+                    <option>Werkstudent</option>
+                    <option>Abschlussarbeit</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control app-header-form-control">
+                    <option>Alle Standorte</option>
+                    <option>Deutschland</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="input-stichwoerter" type="text" class="form-control app-header-form-control" placeholder="Stichwörter">
+            </div>
+            <button type="submit" class="btn btn-default app-header-form-control app-full-width-below-768"><span class="glyphicon glyphicon-filter"></span><span class="app-hide-below-1200 app-show-below-768"> Filtern</span></button>
+            <div class="form-group pull-right">
+                <button type="submit" class="btn btn-default app-header-form-control app-hide-below-768"><span class="glyphicon glyphicon-list"></span><span class="app-hide-below-1200"> Merkzettel</span></button>
+                <button ng-click="logout()" type="submit" class="btn btn-default app-header-form-control app-hide-below-768"><span class="glyphicon glyphicon-log-out"></span><span class="app-hide-below-1200"> Logout</span></button>
+            </div>
+        </div>
+    </div>
+</nav>

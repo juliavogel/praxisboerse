@@ -1,0 +1,73 @@
+.app-full-width {
+    width: 100%;
+}
+
+/* Desktop */
+
+@media (min-width: 768px) {
+
+    .app-container {
+        margin-top: 180px;
+    }
+
+    .app-hide-above-767 {
+        display: none;
+    }
+
+    #login-wrapper {
+        max-width: 300px;
+        margin: auto;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .app-container {
+        margin-top: 150px;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .app-header-form-control {
+        min-width: 110px;
+    }
+
+}
+
+@media (max-width: 1199px) {
+
+    .app-hide-below-1200 {
+        display: none;
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+
+    .app-container {
+        margin-top: 80px;
+    }
+
+    .app-hide-below-768 {
+        display: none;
+    }
+
+    .app-show-below-768 {
+        display: inherit;
+    }
+
+    .app-full-width-below-768 {
+        width: 100%;
+    }
+
+    #login-wrapper {
+        max-width: 300px;
+        margin: auto;
+    }
+
+}

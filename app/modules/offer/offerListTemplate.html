@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <div class="checkbox-inline">
                     <label>
-                        <input type="checkbox"><a href="#" ng-click="showOfferDetail()">{{$index + 1}}) {{offer.shortDescription}}</a>
+                        <input type="checkbox"><a ng-click="showOfferDetail(offer)">{{$index + 1}}) {{offer.shortDescription}}</a>
                     </label>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         <b>Standort:</b> {{offer.countryName}}
                     </div>
                     <div class="col-xs-12 col-md-3">
-                        <b>Hinzugefügt am:</b> {{offer.dateAdded}}
+                        <b>Eingestellt am:</b> {{offer.dateAdded}}
                     </div>
                 </div>
             </div>

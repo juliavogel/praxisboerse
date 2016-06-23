@@ -5,15 +5,6 @@ angular.module('offer')
     .controller('OfferController',
         function ($scope, $uibModal, OfferService) {
 
-            $scope.showOfferDetail = function() {
-                $uibModal.open({
-                    animation: true,
-                    templateUrl: 'modules/offer/offerDetailTemplate.html',
-                    controller: 'OfferDetailController',
-                    size: 'lg'
-                });
-            };
-
             $scope.countries = [];
             $scope.companies = [];
             $scope.offerTypes = [];
@@ -41,6 +32,13 @@ angular.module('offer')
                                                     offer.countryName = $scope.countries[offer.countryId].name;
                                                     offer.companyName = $scope.companies[offer.companyId].companyName;
                                                     offer.typeName = $scope.offerTypes[offer.typeId].name;
+                                                    offer.contactName =
+                                                        $scope.companies[offer.companyId].contact.formOfAddress + ' '
+                                                        + $scope.companies[offer.companyId].contact.firstName + ' '
+                                                        + $scope.companies[offer.companyId].contact.secondName;
+                                                    offer.contactEmail = $scope.companies[offer.companyId].contact.email;
+                                                    offer.contactPhone = $scope.companies[offer.companyId].contact.telephone;
+                                                    offer.contactFax = $scope.companies[offer.companyId].contact.fax;
                                                     $scope.offers.push(offer);
                                                 }
                                             }
@@ -53,16 +51,26 @@ angular.module('offer')
                 }
             });
 
-            /*$scope.sortedOffers = [];
-
-            $scope.$watchCollection('offers', function(newValues, oldValues) {
-                console.log(newValues);
-            });*/
+            $scope.showOfferDetail = function(offer) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'modules/offer/offerDetailTemplate.html',
+                    controller: 'OfferDetailController',
+                    size: 'lg',
+                    resolve: {
+                        offer: function () {
+                            return offer;
+                        }
+                    }
+                });
+            };
 
         })
 
     .controller('OfferDetailController',
-        function($scope, $uibModalInstance) {
+        function($scope, $uibModalInstance, offer) {
+
+            $scope.offer = offer;
 
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');

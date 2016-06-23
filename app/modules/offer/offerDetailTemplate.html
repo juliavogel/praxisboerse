@@ -4,9 +4,9 @@
 </div>
 <div class="modal-body">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#overview">Übersicht</a></li>
-        <li><a data-toggle="tab" href="#contact">Kontakt</a></li>
-        <li><a data-toggle="tab" href="#date">Gültigkeit</a></li>
+        <li class="active"><a data-toggle="tab" data-target="#overview">Übersicht</a></li>
+        <li><a data-toggle="tab" data-target="#contact">Kontakt</a></li>
+        <li><a data-toggle="tab" data-target="#date">Gültigkeit</a></li>
     </ul>
 
     <div class="tab-content">
@@ -18,7 +18,7 @@
                         <b>Angebot:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        Cloud based migration service development and operation (Java)
+                        {{offer.shortDescription}}
                     </div>
                 </div>
             </p>
@@ -28,18 +28,17 @@
                         <b>Firma:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        Musterfirma
+                        {{offer.companyName}}
                     </div>
                 </div>
             </p>
             <p>
                 <div class="row">
                     <div class="col-xs-12 col-md-2">
-                        <b>Studiengänge:</b>
+                        <b>Angebotsart:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        INFB<br>
-                        INFM
+                        {{offer.typeName}}
                     </div>
                 </div>
             </p>
@@ -49,8 +48,7 @@
                         <b>Tätigkeit:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                        {{offer.description}}
                     </div>
                 </div>
             </p>
@@ -60,7 +58,7 @@
                         <b>Land:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        Germany
+                        {{offer.countryName}}
                     </div>
                 </div>
             </p>
@@ -70,7 +68,7 @@
                         <b>Postleitzahl:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        76131
+                        {{offer.zipCode}}
                     </div>
                 </div>
             </p>
@@ -80,7 +78,7 @@
                         <b>Ort:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        Karlsruhe
+                        {{offer.usageSite}}
                     </div>
                 </div>
             </p>
@@ -93,7 +91,7 @@
                         <b>Ansprechpartner:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        Frau Silke Schindel
+                        {{offer.contactName}}
                     </div>
                 </div>
             </p>
@@ -103,7 +101,7 @@
                         <b>E-Mail:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        mail@mail.de
+                        {{offer.contactEmail}}
                     </div>
                 </div>
             </p>
@@ -113,7 +111,7 @@
                         <b>Telefon:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        +4912345678
+                        {{offer.contactPhone}}
                     </div>
                 </div>
             </p>
@@ -123,6 +121,7 @@
                         <b>Fax:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
+                        {{offer.contactFax}}
                     </div>
                 </div>
             </p>
@@ -135,7 +134,7 @@
                         <b>Eingestellt am:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        13.06.2016
+                        {{offer.dateAdded}}
                     </div>
                 </div>
             </p>
@@ -145,7 +144,7 @@
                         <b>Gültig bis:</b>
                     </div>
                     <div class="col-xs-12 col-md-10">
-                        30.09.2016
+                        {{offer.validDate}}
                     </div>
                 </div>
             </p>

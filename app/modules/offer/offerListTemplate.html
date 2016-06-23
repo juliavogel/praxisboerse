@@ -1,80 +1,30 @@
 <div class="container app-container">
 
-    <p>Markieren Sie Angebote, um diese auf Ihrem persönlichen Merkzettel zu speichern.</p>
+    <p><b>Markieren Sie Angebote, um diese auf Ihrem persönlichen Merkzettel zu speichern.</b></p>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"><a href="#">Cloud based migration service development and operation (Java)</a>
-                </label>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <i>Firma:</i> <a href="#">audriga GmbH</a>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Studiengang:</i> Bachelor I
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Angebotsart:</i> Praxissemester
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Standort:</i> Deutschland
+    <div ng-repeat="offer in offers | orderBy: 'dateAdded':true">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="checkbox-inline">
+                    <label>
+                        <input type="checkbox"><a href="#" ng-click="showOfferDetail()">{{$index + 1}}) {{offer.shortDescription}}</a>
+                    </label>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"><a href="#">Cloud based migration service development and operation (Java)</a>
-                </label>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <i>Firma:</i> <a href="#">audriga GmbH</a>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Studiengang:</i> Bachelor I
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Angebotsart:</i> Praxissemester
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Standort:</i> Deutschland
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"><a href="#">Cloud based migration service development and operation (Java)</a>
-                </label>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <i>Firma:</i> <a href="#">audriga GmbH</a>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Studiengang:</i> Bachelor I
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Angebotsart:</i> Praxissemester
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <i>Standort:</i> Deutschland
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <b>Firma:</b> <a href="#">{{offer.companyName}}</a>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <b>Angebotsart:</b> {{offer.typeName}}
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <b>Standort:</b> {{offer.countryName}}
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <b>Hinzugefügt am:</b> {{offer.dateAdded}}
+                    </div>
                 </div>
             </div>
         </div>

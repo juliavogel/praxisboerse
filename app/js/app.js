@@ -9,7 +9,9 @@ angular.module('offer', ['rest']);
 angular.module('app', [
     // Angular modules
     'ngRoute',
+    'ngCookies',
     'base64',
+    'ui.bootstrap',
 
     // Project modules
     'rest',
@@ -17,14 +19,14 @@ angular.module('app', [
     'login',
     'offer'])
 
-    .controller('AppController', ['$scope',
+    .controller('AppController',
         function ($scope) {
 
             // Define globally available functions
 
-        }])
+        })
 
-    .config(['$routeProvider',
+    .config(
         function($routeProvider) {
 
             $routeProvider
@@ -36,6 +38,23 @@ angular.module('app', [
                     controller: 'OfferController',
                     templateUrl: 'modules/offer/offerListTemplate.html'
                 })
+                .when('/bookmark', {
+                    controller: 'BookmarkController',
+                    templateUrl: 'modules/offer/bookmarkListTemplate.html'
+                })
                 .otherwise({redirectTo: '/offer'});
 
-        }]);
+        })
+
+    .run(
+        function($rootScope, $location, LoginService) {
+
+            $rootScope.$on('$routeChangeStart', function(event, next, current) {
+                if (next.originalPath === '/login') {
+                    LoginService.clearCredentials();
+                } else if (!LoginService.loggedIn()) {
+                    $location.path('/login');
+                }
+            });
+
+        });

@@ -16,21 +16,19 @@
         </div>
         <div ng-if="loggedIn()" id="filter" class="navbar-form navbar-collapse collapse">
             <div class="form-group">
-                <select class="form-control app-header-form-control">
-                    <option value="0">Alle Angebotsarten</option>
-                    <option ng-repeat="offerOption in offerOptions" value="{{offerOption.value}}">{{offerOption.name}}</option>
+                <select id="select-type" ng-model="selectType" ng-change="setOfferType(selectType)" data-ng-options="typeOption.value as typeOption.name for typeOption in typeOptions" class="form-control app-header-form-control">
+                    <option value="">Alle Angebotsarten</option>
                 </select>
             </div>
             <div class="form-group">
-                <select class="form-control app-header-form-control">
-                    <option>Alle Standorte</option>
-                    <option>Deutschland</option>
+                <select id="select-country" ng-model="selectCountry" ng-change="setOfferCountry(selectCountry)" data-ng-options="countryOption.value as countryOption.name for countryOption in countryOptions" class="form-control app-header-form-control">
+                    <option value="">Alle Standorte</option>
                 </select>
             </div>
             <div class="form-group">
-                <input id="input-stichwoerter" type="text" class="form-control app-header-form-control" placeholder="Stichwörter">
+                <input id="input-search" ng-model="inputSearch" ng-enter="setOfferSearch(inputSearch)" type="text" class="form-control app-header-form-control" placeholder="Stichwörter"/>
             </div>
-            <button type="submit" class="btn btn-default app-header-form-control app-full-width-below-768"><span class="glyphicon glyphicon-filter"></span><span class="app-hide-below-1200 app-show-below-768"> Filtern</span></button>
+            <!--<button type="submit" class="btn btn-default app-header-form-control app-full-width-below-768"><span class="glyphicon glyphicon-filter"></span><span class="app-hide-below-1200 app-show-below-768"> Filtern</span></button>-->
             <div class="form-group pull-right">
                 <button ng-click="listBookmarks()" type="submit" class="btn btn-default app-header-form-control app-hide-below-768"><span class="glyphicon glyphicon-list"></span><span class="app-hide-below-1200"> Merkzettel</span></button>
                 <button ng-click="logout()" type="submit" class="btn btn-default app-header-form-control app-hide-below-768"><span class="glyphicon glyphicon-log-out"></span><span class="app-hide-below-1200"> Logout</span></button>

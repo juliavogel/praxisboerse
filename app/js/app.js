@@ -2,7 +2,7 @@
 
 // Declare all implemented modules with their dependencies
 angular.module('rest', []);
-angular.module('menu', []);
+angular.module('menu', ['offer']);
 angular.module('login', ['rest']);
 angular.module('offer', ['rest']);
 
@@ -22,9 +22,22 @@ angular.module('app', [
     .controller('AppController',
         function ($scope) {
 
-            // Define globally available functions
+            // Define globally available functions and parameters
 
         })
+
+    .directive('ngEnter', function() {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.$apply(function (){
+                        scope.$eval(attrs.ngEnter);
+                    });
+                    event.preventDefault();
+                }
+            });
+        };
+    })
 
     .config(
         function($routeProvider) {

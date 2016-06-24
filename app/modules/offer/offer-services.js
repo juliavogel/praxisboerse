@@ -7,6 +7,12 @@ angular.module('offer')
 
             var service = {};
 
+            service.offerFilter = {
+                offerType: null,
+                offerCountry: null,
+                offerSearch: ''
+            };
+
             service.listOfferTypes = function(callback) {
                 RestService.call("getOfferTypes", {transformResponse: function(data) {return data}})
                     .then(function(response) {

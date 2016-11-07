@@ -15,9 +15,10 @@ angular.module('rest',['base64'])
         service.interfaces["getNotepad"] = {method: "GET", path: "/joboffer/notepad"};
         service.interfaces["addBookmark"] = {method: "POST", path: "/joboffer/notepad/offer"};
         service.interfaces["removeBookmark"] = {method: "DELETE", path: "/joboffer/notepad/offer"};
+        service.interfaces["getGeocoordinates"] = {method: "GET", path: "/maps/api/geocode/json"};
 
         service.call = function (key, opts) {
-            $http.defaults.headers.common.Authorization = 'Basic ' + $cookies.get('credentials');
+            //$http.defaults.headers.common.Authorization = 'Basic ' + $cookies.get('credentials');
 
             if (typeof opts === "undefined") {
                 opts = {};
@@ -26,10 +27,15 @@ angular.module('rest',['base64'])
             var data = (typeof opts.data === "undefined") ? "" : opts.data;
             var request = service.interfaces[key];
 
+            if (key === "getGeocoordinates") {
+                opts.url = "https://maps.googleapis.com" + request.path + '?' + parameter + '&key=AIzaSyC5xMa7Bfv2jSUStftHUVQjQ-nlMmKKqRc';
+            } else {
+                opts.url = 'https://www.iwi.hs-karlsruhe.de/Intranetaccess/REST' + request.path + parameter;
+                opts.headers = {'Content-Type': 'application/json', 'Authorization': 'Basic ' + $cookies.get('credentials')};
+            }
+
             opts.method = request.method;
-            opts.url = 'https://www.iwi.hs-karlsruhe.de/Intranetaccess/REST' + request.path + parameter;
             opts.data = data;
-            opts.headers = {'Content-Type': 'application/json'};
 
             var deferred = $q.defer();
             $http(opts).then(

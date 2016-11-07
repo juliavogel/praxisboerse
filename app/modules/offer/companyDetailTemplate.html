@@ -52,6 +52,16 @@
                     </div>
                 </div>
             </p>
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Webseite:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        <a target="_new" href="{{offer.company.website}}">{{offer.company.website}}</a>
+                    </div>
+                </div>
+            </p>
         </div>
 
         <div id="company-address" class="tab-pane fade">
@@ -96,24 +106,19 @@
                 </div>
             </p>
             <p>
-            <div class="row">
-                <div class="col-xs-12 col-md-2">
-                    <b>Land:</b>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Land:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.country}}
+                    </div>
                 </div>
-                <div class="col-xs-12 col-md-10">
-                    {{offer.company.country}}
-                </div>
-            </div>
             </p>
             <p>
-            <div class="row">
-                <div class="col-xs-12 col-md-2">
-                    <b>Webseite:</b>
-                </div>
-                <div class="col-xs-12 col-md-10">
-                    <a target="_new" href="{{offer.company.website}}">{{offer.company.website}}</a>
-                </div>
-            </div>
+                <ng-map center="{{geocoordinates}}">
+                    <marker position="{{geocoordinates}}" title="{{offer.companyName}}"></marker>
+                </ng-map>
             </p>
         </div>
 

@@ -12,6 +12,7 @@ angular.module('app', [
     'ngCookies',
     'base64',
     'ui.bootstrap',
+    'ngMap',
 
     // Project modules
     'rest',

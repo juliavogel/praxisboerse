@@ -64,6 +64,18 @@ angular.module('offer')
                     });
             };
 
+            service.getGeocoordinates = function(companyName, street, zipCode, city, country, callback) {
+                var address = companyName + ", " + street + ", " + zipCode + " " + city + ", " + country;
+                var parameter = "address=" + encodeURIComponent(address);
+                RestService.call("getGeocoordinates", {transformResponse: function(data) {return data}, parameter: parameter})
+                    .then(function(response) {
+                        var countries = JSON.parse(response.data);
+                        callback({success: true, data: countries});
+                    }, function(response) {
+                        callback({success: false, data: response});
+                    });
+            };
+
             return service;
         })
 

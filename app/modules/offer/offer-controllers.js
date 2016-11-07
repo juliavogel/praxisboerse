@@ -157,13 +157,34 @@ angular.module('offer')
         })
 
     .controller('CompanyDetailController',
-        function($scope, $uibModalInstance, offer) {
+        function($scope, $uibModalInstance, OfferService, offer, NgMap) {
 
             $scope.offer = offer;
 
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
+
+            $uibModalInstance.rendered.then(function() {
+                $('a[data-target="#company-address"]').on('shown.bs.tab', function (e) {
+                    NgMap.getMap().then(function(map) {
+                        OfferService.getGeocoordinates(offer.companyName, offer.company.street, offer.company.zipCode, offer.company.city, offer.company.country, function(response) {
+                            if (response.success) {
+                                var location = response.data.results[0].geometry.location;
+                                $scope.geocoordinates = [location.lat, location.lng];
+                            }
+                        });
+                        google.maps.event.trigger(map, 'resize');
+                        // TODO on resize set center to current position (not company geocoordinates)
+                        $(window).resize(function() {
+                            map.setCenter({lat: $scope.geocoordinates[0], lng: $scope.geocoordinates[1]});
+                            /*var center = map.getCenter();
+                            google.maps.event.trigger(map, "resize");
+                            map.setCenter(center);*/
+                        });
+                    });
+                });
+            });
 
         })
 

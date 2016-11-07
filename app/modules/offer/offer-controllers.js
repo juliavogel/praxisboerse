@@ -32,6 +32,7 @@ angular.module('offer')
                                                         for (var key in response.data) {
                                                             if ((country == null) || (country == $scope.countries[response.data[key].countryId].code)) {
                                                                 var offer = response.data[key];
+                                                                offer.company = $scope.companies[offer.companyId];
                                                                 offer.countryName = $scope.countries[offer.countryId].name;
                                                                 offer.companyName = $scope.companies[offer.companyId].companyName;
                                                                 offer.typeName = $scope.offerTypes[offer.typeId].name;
@@ -57,6 +58,7 @@ angular.module('offer')
                                                     for (var key in response.data) {
                                                         if ((country == null) || (country == $scope.countries[response.data[key].countryId].code)) {
                                                             var offer = response.data[key];
+                                                            offer.company = $scope.companies[offer.companyId];
                                                             offer.countryName = $scope.countries[offer.countryId].name;
                                                             offer.companyName = $scope.companies[offer.companyId].companyName;
                                                             offer.typeName = $scope.offerTypes[offer.typeId].name;
@@ -114,6 +116,20 @@ angular.module('offer')
                 });
             };
 
+            $scope.showCompanyDetail = function(offer) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'modules/offer/companyDetailTemplate.html',
+                    controller: 'CompanyDetailController',
+                    size: 'lg',
+                    resolve: {
+                        offer: function () {
+                            return offer;
+                        }
+                    }
+                });
+            };
+
             $scope.$watch(function() {return OfferService.offerFilter}, function(newValue, oldValue) {
                 $scope.setFilterInputDisabled(true);
                 $scope.listOffers(newValue.offerType, newValue.offerCountry, newValue.offerSearch, function() {
@@ -140,6 +156,17 @@ angular.module('offer')
 
         })
 
+    .controller('CompanyDetailController',
+        function($scope, $uibModalInstance, offer) {
+
+            $scope.offer = offer;
+
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            };
+
+        })
+
     .controller('BookmarkController',
         function ($scope,  $uibModal, BookmarkService) {
 
@@ -153,6 +180,7 @@ angular.module('offer')
                         var countries = response.data["countries"];
                         for (var key in offers) {
                             var offer = offers[key];
+                            offer.company = companies[offer.companyId];
                             offer.companyName = companies[offer.companyId].companyName;
                             offer.typeName = offerTypes[offer.typeId].name;
                             offer.countryName = countries[offer.countryId].name;
@@ -174,6 +202,20 @@ angular.module('offer')
                     animation: true,
                     templateUrl: 'modules/offer/offerDetailTemplate.html',
                     controller: 'OfferDetailController',
+                    size: 'lg',
+                    resolve: {
+                        offer: function () {
+                            return offer;
+                        }
+                    }
+                });
+            };
+
+            $scope.showCompanyDetail = function(offer) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'modules/offer/companyDetailTemplate.html',
+                    controller: 'CompanyDetailController',
                     size: 'lg',
                     resolve: {
                         offer: function () {

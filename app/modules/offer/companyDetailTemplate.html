@@ -1,0 +1,167 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Firmendaten</h4>
+</div>
+<div class="modal-body">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" data-target="#company-overview">Übersicht</a></li>
+        <li><a data-toggle="tab" data-target="#company-address">Anschrift</a></li>
+        <li><a data-toggle="tab" data-target="#company-contact">Kontakt</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="company-overview" class="tab-pane fade in active">
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Firma:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.companyName}}
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Beschreibung:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.description}}
+                    </div>
+                </div>
+            </p>
+            <p>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <b>Mitarbeiter:</b>
+                </div>
+                <div class="col-xs-12 col-md-10">
+                    {{offer.company.numberOfEmployees}}
+                </div>
+            </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Angebote:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.numberOfOffers}}
+                    </div>
+                </div>
+            </p>
+        </div>
+
+        <div id="company-address" class="tab-pane fade">
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Straße:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.street}}
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Postfach:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.postofficeBox}}
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>PLZ:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.zipCode}}
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <b>Ort:</b>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        {{offer.company.city}}
+                    </div>
+                </div>
+            </p>
+            <p>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <b>Land:</b>
+                </div>
+                <div class="col-xs-12 col-md-10">
+                    {{offer.company.country}}
+                </div>
+            </div>
+            </p>
+            <p>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <b>Webseite:</b>
+                </div>
+                <div class="col-xs-12 col-md-10">
+                    <a target="_new" href="{{offer.company.website}}">{{offer.company.website}}</a>
+                </div>
+            </div>
+            </p>
+        </div>
+
+        <div id="company-contact" class="tab-pane fade">
+            <p>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <b>Ansprechpartner:</b>
+                </div>
+                <div class="col-xs-12 col-md-10">
+                    {{offer.contactName}}
+                </div>
+            </div>
+            </p>
+            <p>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <b>E-Mail:</b>
+                </div>
+                <div class="col-xs-12 col-md-10">
+                    <a href="mailto:{{offer.contactEmail}}">{{offer.contactEmail}}</a>
+                </div>
+            </div>
+            </p>
+            <p>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <b>Telefon:</b>
+                </div>
+                <div class="col-xs-12 col-md-10">
+                    <a href="tel:{{offer.contactPhone}}">{{offer.contactPhone}}</a>
+                </div>
+            </div>
+            </p>
+            <p>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <b>Fax:</b>
+                </div>
+                <div class="col-xs-12 col-md-10">
+                    {{offer.contactFax}}
+                </div>
+            </div>
+            </p>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Schließen</button>
+</div>

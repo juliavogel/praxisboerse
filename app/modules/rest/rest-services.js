@@ -12,6 +12,9 @@ angular.module('rest',['base64'])
         service.interfaces["getCompaniesWithOffers"] = {method: "GET", path: "/joboffer/companies/withoffers"};
         service.interfaces["getCompany"] = {method: "GET", path: "/joboffer/company"};
         service.interfaces["getCountries"] = {method: "GET", path: "/joboffer/countries/all"};
+        service.interfaces["getNotepad"] = {method: "GET", path: "/joboffer/notepad"};
+        service.interfaces["addBookmark"] = {method: "POST", path: "/joboffer/notepad/offer"};
+        service.interfaces["removeBookmark"] = {method: "DELETE", path: "/joboffer/notepad/offer"};
 
         service.call = function (key, opts) {
             $http.defaults.headers.common.Authorization = 'Basic ' + $cookies.get('credentials');
@@ -26,6 +29,7 @@ angular.module('rest',['base64'])
             opts.method = request.method;
             opts.url = 'https://www.iwi.hs-karlsruhe.de/Intranetaccess/REST' + request.path + parameter;
             opts.data = data;
+            opts.headers = {'Content-Type': 'application/json'};
 
             var deferred = $q.defer();
             $http(opts).then(

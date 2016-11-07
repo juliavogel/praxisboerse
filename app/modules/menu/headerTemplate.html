@@ -5,7 +5,7 @@
             <button ng-if="loggedIn()" ng-click="logout()" class="navbar-toggle">
                 <span class="glyphicon glyphicon-log-out"></span>
             </button>
-            <button ng-if="loggedIn()" class="navbar-toggle">
+            <button ng-if="loggedIn()" ng-click="listBookmarks()" type="submit" class="navbar-toggle">
                 <span class="glyphicon glyphicon-list"></span>
             </button>
             <button ng-if="loggedIn()" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#filter" aria-expanded="false" aria-controls="navbar">

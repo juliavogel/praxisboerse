@@ -3,7 +3,7 @@
 angular.module('offer')
 
     .controller('OfferController',
-        function ($scope, $uibModal, OfferService) {
+        function ($scope, $uibModal, OfferService, BookmarkService) {
 
             $scope.listOffers = function(type, country, search, callback) {
                 $scope.countries = [];
@@ -82,6 +82,24 @@ angular.module('offer')
                 });
             };
 
+            $scope.addBookmark = function(offerId) {
+                BookmarkService.addBookmark(offerId, function(response) {
+                })
+            };
+
+            $scope.removeBookmark = function(offerId) {
+                BookmarkService.removeBookmark(offerId, function(response) {
+                })
+            };
+
+            $scope.toggleBookmark = function(offer) {
+                if (offer.onNotepad)  {
+                    $scope.addBookmark(offer.id);
+                } else {
+                    $scope.removeBookmark(offer.id);
+                }
+            };
+
             $scope.showOfferDetail = function(offer) {
                 $uibModal.open({
                     animation: true,
@@ -123,6 +141,56 @@ angular.module('offer')
         })
 
     .controller('BookmarkController',
-        function ($scope) {
+        function ($scope,  $uibModal, BookmarkService) {
+
+            $scope.listBookmarks = function(start, count) {
+                $scope.offers = [];
+                BookmarkService.getNotepad(start, count, function(response) {
+                    if (response.success) {
+                        var offers = response.data["offers"];
+                        var companies = response.data["companies"];
+                        var offerTypes = response.data["offerTypes"];
+                        var countries = response.data["countries"];
+                        for (var key in offers) {
+                            var offer = offers[key];
+                            offer.companyName = companies[offer.companyId].companyName;
+                            offer.typeName = offerTypes[offer.typeId].name;
+                            offer.countryName = countries[offer.countryId].name;
+                            offer.contactName =
+                                offer.contact.formOfAddress + ' '
+                                + offer.contact.firstName + ' '
+                                + offer.contact.secondName;
+                            offer.contactEmail = offer.contact.email;
+                            offer.contactPhone = offer.contact.telephone;
+                            offer.contactFax = offer.contact.fax;
+                            $scope.offers.push(offer);
+                        }
+                    }
+                });
+            };
+
+            $scope.showOfferDetail = function(offer) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'modules/offer/offerDetailTemplate.html',
+                    controller: 'OfferDetailController',
+                    size: 'lg',
+                    resolve: {
+                        offer: function () {
+                            return offer;
+                        }
+                    }
+                });
+            };
+
+            $scope.removeBookmark = function(offerId) {
+                BookmarkService.removeBookmark(offerId, function(response) {
+                    if (response.success) {
+                        $scope.listBookmarks(0,-1);
+                    }
+                })
+            };
+
+            $scope.listBookmarks(0,-1);
 
         });

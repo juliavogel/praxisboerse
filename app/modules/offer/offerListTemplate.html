@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <div class="checkbox-inline">
                     <label>
-                        <input type="checkbox"><a ng-click="showOfferDetail(offer)">{{$index + 1}}) {{offer.shortDescription}}</a>
+                        <input type="checkbox" ng-model="offer.onNotepad" ng-change="toggleBookmark(offer)"><a ng-click="showOfferDetail(offer)">{{$index + 1}}) {{offer.shortDescription}}</a>
                     </label>
                 </div>
             </div>

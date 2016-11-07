@@ -65,5 +65,45 @@ angular.module('offer')
             };
 
             return service;
+        })
+
+    .factory('BookmarkService',
+        function(RestService) {
+
+            var service = {};
+
+            service.getNotepad = function(start, count, callback) {
+                var parameter = '/' + start + '/' + count;
+                RestService.call("getNotepad", {transformResponse: function(data) {return data}, parameter: parameter})
+                    .then(function(response) {
+                        var notepad = JSON.parse(response.data);
+                        callback({success: true, data: notepad});
+                    }, function(response) {
+                        callback({success: false, data: response});
+                    });
+            };
+
+            service.addBookmark = function(offerId, callback) {
+                RestService.call("addBookmark", {transformResponse: function(data) {return data}, data: offerId})
+                    .then(function(response) {
+                        callback({success: true});
+                    }, function(response) {
+                        callback({success: false});
+                    });
+            };
+
+            service.removeBookmark = function(offerId, callback) {
+                var parameter = '/' + offerId;
+                RestService.call("removeBookmark", {transformResponse: function(data) {return data}, data: {}, parameter: parameter})
+                    .then(function(response) {
+                        callback({success: true});
+                    }, function(response) {
+                        callback({success: false});
+                    });
+            };
+
+
+            return service;
+
         });
 

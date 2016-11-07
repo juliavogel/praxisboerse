@@ -2,79 +2,29 @@
 
     <p><b>Entfernen Sie Markierungen, um Angebote von Ihrem persönlichen Merkzettel zu löschen.</b></p>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"><a href="#">Cloud based migration service development and operation (Java)</a>
-                </label>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <b>Firma:</b> <a href="#">audriga GmbH</a>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Studiengang:</b> Bachelor I
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Angebotsart:</b> Praxissemester
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Standort:</b> Deutschland
+    <div ng-repeat="offer in offers | orderBy: 'dateAdded':true">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="checkbox-inline">
+                    <label>
+                        <input type="checkbox" ng-checked="true" ng-click="removeBookmark(offer.id)"><a ng-click="showOfferDetail(offer)">{{$index + 1}}) {{offer.shortDescription}}</a>
+                    </label>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"><a href="#">Cloud based migration service development and operation (Java)</a>
-                </label>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <b>Firma:</b> <a href="#">audriga GmbH</a>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Studiengang:</b> Bachelor I
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Angebotsart:</b> Praxissemester
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Standort:</b> Deutschland
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"><a href="#">Cloud based migration service development and operation (Java)</a>
-                </label>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <b>Firma:</b> <a href="#">audriga GmbH</a>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Studiengang:</b> Bachelor I
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Angebotsart:</b> Praxissemester
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <b>Standort:</b> Deutschland
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <b>Firma:</b> <a href="#">{{offer.companyName}}</a>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <b>Angebotsart:</b> {{offer.typeName}}
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <b>Standort:</b> {{offer.countryName}}
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <b>Eingestellt am:</b> {{offer.dateAdded}}
+                    </div>
                 </div>
             </div>
         </div>

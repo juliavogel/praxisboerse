@@ -2,7 +2,12 @@
 
     <p><b>Markieren Sie Angebote, um diese auf Ihrem persönlichen Merkzettel zu speichern.</b></p>
 
-    <div ng-repeat="offer in offers | orderBy: 'dateAdded':true">
+    <div id="offer-list-error-alert" class="alert alert-danger" role="alert" style="display: none">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        Fehler beim Laden der Angebote. Versuchen Sie es noch einmal.
+    </div>
+
+    <div ng-repeat="offer in offers">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="checkbox-inline">
@@ -29,5 +34,9 @@
             </div>
         </div>
     </div>
+
+    <p>
+        <button ng-if="isMobile()" ng-click="addOffersOnMobile()" type="submit" class="btn btn-default app-full-width">Mehr laden</button>
+    </p>
 
 </div>

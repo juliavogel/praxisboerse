@@ -61,11 +61,12 @@ angular.module('app', [
         })
 
     .run(
-        function($rootScope, $location, LoginService) {
+        function($rootScope, $location, LoginService, OfferService) {
 
             $rootScope.$on('$routeChangeStart', function(event, next, current) {
                 if (next.originalPath === '/login') {
                     LoginService.clearCredentials();
+                    OfferService.clearFilter();
                 } else if (!LoginService.loggedIn()) {
                     $location.path('/login');
                 }

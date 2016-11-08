@@ -6,6 +6,8 @@ angular.module('offer')
         function ($scope, $uibModal, OfferService, BookmarkService) {
 
             $scope.listOffers = function(type, country, search, callback) {
+                $scope.showAlert(false);
+                $scope.pagingIndex = 0;
                 $scope.countries = [];
                 $scope.companies = [];
                 $scope.offerTypes = [];
@@ -25,63 +27,88 @@ angular.module('offer')
                                         for (var i in response.data) {
                                             $scope.offerTypes[response.data[i].id] = response.data[i];
                                         }
-                                        if (type == null) {
-                                            for (var j in $scope.offerTypes) {
-                                                OfferService.listOffers($scope.offerTypes[j].shortname, search, '0', '-1', function (response) {
-                                                    if (response.success) {
-                                                        for (var key in response.data) {
-                                                            if ((country == null) || (country == $scope.countries[response.data[key].countryId].code)) {
-                                                                var offer = response.data[key];
-                                                                offer.company = $scope.companies[offer.companyId];
-                                                                offer.countryName = $scope.countries[offer.countryId].name;
-                                                                offer.companyName = $scope.companies[offer.companyId].companyName;
-                                                                offer.typeName = $scope.offerTypes[offer.typeId].name;
-                                                                offer.contactName =
-                                                                    $scope.companies[offer.companyId].contact.formOfAddress + ' '
-                                                                    + $scope.companies[offer.companyId].contact.firstName + ' '
-                                                                    + $scope.companies[offer.companyId].contact.secondName;
-                                                                offer.contactEmail = $scope.companies[offer.companyId].contact.email;
-                                                                offer.contactPhone = $scope.companies[offer.companyId].contact.telephone;
-                                                                offer.contactFax = $scope.companies[offer.companyId].contact.fax;
-                                                                $scope.offers.push(offer);
-                                                            }
-                                                        }
-                                                    }
-                                                    if (j == $scope.offerTypes.length - 1) {
-                                                        callback();
-                                                    }
-                                                });
-                                            }
+                                        if ($scope.isMobile()) {
+                                            $scope.listOffersOnMobile(0, callback);
                                         } else {
                                             OfferService.listOffers(type, search, '0', '-1', function(response) {
                                                 if (response.success) {
                                                     for (var key in response.data) {
                                                         if ((country == null) || (country == $scope.countries[response.data[key].countryId].code)) {
-                                                            var offer = response.data[key];
-                                                            offer.company = $scope.companies[offer.companyId];
-                                                            offer.countryName = $scope.countries[offer.countryId].name;
-                                                            offer.companyName = $scope.companies[offer.companyId].companyName;
-                                                            offer.typeName = $scope.offerTypes[offer.typeId].name;
-                                                            offer.contactName =
-                                                                $scope.companies[offer.companyId].contact.formOfAddress + ' '
-                                                                + $scope.companies[offer.companyId].contact.firstName + ' '
-                                                                + $scope.companies[offer.companyId].contact.secondName;
-                                                            offer.contactEmail = $scope.companies[offer.companyId].contact.email;
-                                                            offer.contactPhone = $scope.companies[offer.companyId].contact.telephone;
-                                                            offer.contactFax = $scope.companies[offer.companyId].contact.fax;
-                                                            $scope.offers.push(offer);
+                                                            $scope.addOffer(response.data[key]);
                                                         }
                                                     }
+                                                } else {
+                                                    $scope.showAlert(true);
                                                 }
                                                 callback();
                                             });
                                         }
+                                    } else {
+                                        $scope.showAlert(true);
+                                        callback();
                                     }
                                 });
+                            } else {
+                                $scope.showAlert(true);
+                                callback();
                             }
                         });
+                    } else {
+                        $scope.showAlert(true);
+                        callback();
                     }
                 });
+            };
+
+            $scope.addOffer = function(offer) {
+                offer.company = $scope.companies[offer.companyId];
+                offer.countryName = $scope.countries[offer.countryId].name;
+                offer.companyName = $scope.companies[offer.companyId].companyName;
+                offer.typeName = $scope.offerTypes[offer.typeId].name;
+                offer.contactName =
+                    $scope.companies[offer.companyId].contact.formOfAddress + ' '
+                    + $scope.companies[offer.companyId].contact.firstName + ' '
+                    + $scope.companies[offer.companyId].contact.secondName;
+                offer.contactEmail = $scope.companies[offer.companyId].contact.email;
+                offer.contactPhone = $scope.companies[offer.companyId].contact.telephone;
+                offer.contactFax = $scope.companies[offer.companyId].contact.fax;
+                $scope.offers.push(offer);
+            };
+
+            $scope.listOffersOnMobile = function(offersAdded, callback) {
+                OfferService.listOffers(OfferService.offerFilter.offerType, OfferService.offerFilter.offerSearch, $scope.pagingIndex, '1', function(response) {
+                    if (response.success) {
+                        for (var key in response.data) {
+                            if ((OfferService.offerFilter.offerCountry == null) || (OfferService.offerFilter.offerCountry == $scope.countries[response.data[key].countryId].code)) {
+                                $scope.addOffer(response.data[key]);
+                                offersAdded++;
+                            }
+                        }
+                        $scope.pagingIndex += response.data.length;
+                        if (offersAdded < 10) {
+                            $scope.listOffersOnMobile(offersAdded, callback);
+                        } else {
+                            callback();
+                        }
+                    } else {
+                        $scope.showAlert(true);
+                        callback();
+                    }
+                });
+            };
+
+            $scope.addOffersOnMobile = function() {
+                $scope.listOffersOnMobile(0, function() {
+                });
+            };
+
+            $scope.showAlert = function(showAlert) {
+                var alert = $('#offer-list-error-alert');
+                if (showAlert) {
+                    alert.show();
+                } else {
+                    alert.css('display', 'none');
+                }
             };
 
             $scope.addBookmark = function(offerId) {
@@ -131,17 +158,23 @@ angular.module('offer')
             };
 
             $scope.$watch(function() {return OfferService.offerFilter}, function(newValue, oldValue) {
-                $scope.setFilterInputDisabled(true);
-                $scope.listOffers(newValue.offerType, newValue.offerCountry, newValue.offerSearch, function() {
-                    $scope.setFilterInputDisabled(false);
-                });
+                if (newValue.offerType != null) {
+                    $scope.setFilterInputDisabled(true);
+                    $scope.listOffers(newValue.offerType, newValue.offerCountry, newValue.offerSearch, function() {
+                        $scope.setFilterInputDisabled(false);
+                    });
+                }
             }, true);
 
             $scope.setFilterInputDisabled = function(disabled) {
                 $('#select-type').prop('disabled', disabled);
                 $('#select-country').prop('disabled', disabled);
                 $('#input-search').prop('disabled', disabled);
-            }
+            };
+
+            $scope.isMobile = function() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            };
 
         })
 

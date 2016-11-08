@@ -39,6 +39,8 @@ angular.module('menu')
                                 name: response.data[key].name
                             });
                         }
+                        $scope.selectType = response.data[0].shortname;
+                        $scope.setOfferType($scope.selectType);
                     }
                 });
                 OfferService.listCountries(function(response) {

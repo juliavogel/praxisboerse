@@ -85,7 +85,7 @@ angular.module('offer')
                             }
                         }
                         $scope.pagingIndex += response.data.length;
-                        if (offersAdded < 10) {
+                        if (offersAdded < 10 && response.data.length > 0) {
                             $scope.listOffersOnMobile(offersAdded, callback);
                         } else {
                             callback();
@@ -98,7 +98,9 @@ angular.module('offer')
             };
 
             $scope.addOffersOnMobile = function() {
+                $scope.setInputDisabled(true);
                 $scope.listOffersOnMobile(0, function() {
+                    $scope.setInputDisabled(false);
                 });
             };
 
@@ -159,14 +161,15 @@ angular.module('offer')
 
             $scope.$watch(function() {return OfferService.offerFilter}, function(newValue, oldValue) {
                 if (newValue.offerType != null) {
-                    $scope.setFilterInputDisabled(true);
+                    $scope.setInputDisabled(true);
                     $scope.listOffers(newValue.offerType, newValue.offerCountry, newValue.offerSearch, function() {
-                        $scope.setFilterInputDisabled(false);
+                        $scope.setInputDisabled(false);
                     });
                 }
             }, true);
 
-            $scope.setFilterInputDisabled = function(disabled) {
+            $scope.setInputDisabled = function(disabled) {
+                $('#btn-load-more').prop('disabled', disabled);
                 $('#select-type').prop('disabled', disabled);
                 $('#select-country').prop('disabled', disabled);
                 $('#input-search').prop('disabled', disabled);

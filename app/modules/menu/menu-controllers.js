@@ -9,8 +9,16 @@ angular.module('menu')
                 return ($location.path() !== '/login');
             };
 
+            $scope.filterEnabled = function() {
+                return ($location.path() === '/offer');
+            };
+
             $scope.logout = function() {
                 $location.path('/login');
+            };
+
+            $scope.listOffers = function() {
+                $location.path('/offer');
             };
 
             $scope.listBookmarks = function() {
@@ -57,7 +65,7 @@ angular.module('menu')
             };
 
             $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
-                if ((typeof previous === 'undefined' || previous.originalPath === '/login') && (current.originalPath === '/offer' || current.originalPath === '/bookmark')) {
+                if (current.originalPath === '/offer' && (typeof previous === 'undefined' || previous.originalPath !== '/bookmark')) {
                     $scope.initDropdowns();
                 }
             });

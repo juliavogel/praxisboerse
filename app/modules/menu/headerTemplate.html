@@ -1,14 +1,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">HsKA Praxisbörse</a>
+            <a ng-click="listOffers()" class="navbar-brand">HsKA Praxisbörse</a>
             <button ng-if="loggedIn()" ng-click="logout()" class="navbar-toggle">
                 <span class="glyphicon glyphicon-log-out"></span>
             </button>
             <button ng-if="loggedIn()" ng-click="listBookmarks()" type="submit" class="navbar-toggle">
                 <span class="glyphicon glyphicon-list"></span>
             </button>
-            <button ng-if="loggedIn()" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#filter" aria-expanded="false" aria-controls="navbar">
+            <button ng-if="filterEnabled()" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#filter" aria-expanded="false" aria-controls="navbar">
                 <span class="glyphicon glyphicon-filter"></span>
             </button>
         </div>
@@ -16,16 +16,16 @@
         </div>
         <div ng-if="loggedIn()" id="filter" class="navbar-form navbar-collapse collapse">
             <div class="form-group">
-                <select id="select-type" ng-model="selectType" ng-change="setOfferType(selectType)" data-ng-options="typeOption.value as typeOption.name for typeOption in typeOptions" class="form-control app-header-form-control">
+                <select id="select-type" ng-disabled="!filterEnabled()" ng-model="selectType" ng-change="setOfferType(selectType)" data-ng-options="typeOption.value as typeOption.name for typeOption in typeOptions" class="form-control app-header-form-control">
                 </select>
             </div>
             <div class="form-group">
-                <select id="select-country" ng-model="selectCountry" ng-change="setOfferCountry(selectCountry)" data-ng-options="countryOption.value as countryOption.name for countryOption in countryOptions" class="form-control app-header-form-control">
+                <select id="select-country" ng-disabled="!filterEnabled()" ng-model="selectCountry" ng-change="setOfferCountry(selectCountry)" data-ng-options="countryOption.value as countryOption.name for countryOption in countryOptions" class="form-control app-header-form-control">
                     <option value="">Alle Standorte</option>
                 </select>
             </div>
             <div class="form-group">
-                <input id="input-search" ng-model="inputSearch" ng-enter="setOfferSearch(inputSearch)" type="text" class="form-control app-header-form-control" placeholder="Stichwörter"/>
+                <input id="input-search" ng-disabled="!filterEnabled()" ng-model="inputSearch" ng-enter="setOfferSearch(inputSearch)" type="text" class="form-control app-header-form-control" placeholder="Stichwörter"/>
             </div>
             <div class="form-group pull-right">
                 <button ng-click="listBookmarks()" type="submit" class="btn btn-default app-header-form-control app-hide-below-768"><span class="glyphicon glyphicon-list"></span><span class="app-hide-below-1200"> Merkzettel</span></button>
